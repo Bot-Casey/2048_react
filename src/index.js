@@ -80,6 +80,43 @@ class GameBoard extends React.Component {
     )
   }
 
+  mergeSubArray() {
+    // This function assumes that its array is one dimentional and merges toward the front
+    // ex: ["", 4, 4, ""] => ["8", "", "", ""]
+
+    let condensed = [];
+    let output = [];
+    let mergeFlag = true;
+
+    // Remove all null values
+    for (let i = 0; i < squares.length; i++) {
+      if (squares[i] !== undefined) {
+        condensed.push(squares[i]);
+        console.log(condensed)
+      } 
+    }
+    
+    // Merge similar values
+    for (let i = 0; i < condensed.length - 1; i++) {
+      if (condensed[i] === condensed[i + 1] && mergeFlag){
+        condensed[i] = 2 * condensed[i];
+        condensed[i+1] = undefined;
+        mergeFlag = false;
+      } else if (condensed[i] === condensed[i + 1] && !mergeFlag) {
+        mergeFlag = true;
+      }
+    }
+
+    // Remove all null values from condensed
+    for (let i = 0; i < squares.length; i++) {
+      if (condensed[i] !== undefined) {
+        output.push(condensed[i]);
+      } 
+    }
+
+    return output;
+  }
+
   onKeyPress(event) {
     this.setRandomSquare();
   }
