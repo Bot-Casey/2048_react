@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-let freeSquares = 16;
-let totalSquares = 16;
+// boardWidth controls all constants
 let boardWidth = 4;
+let freeSquares = 4 * boardWidth;
+let totalSquares = freeSquares;
 
 class Square extends React.Component {
   render() {
@@ -80,7 +81,7 @@ class GameBoard extends React.Component {
     )
   }
 
-  mergeSubArray() {
+  mergeSubArray(squares) {
     // This function assumes that its array is one dimentional and merges toward the front
     // ex: ["", 4, 4, ""] => ["8", "", "", ""]
 
@@ -119,6 +120,7 @@ class GameBoard extends React.Component {
 
   onKeyPress(event) {
     this.setRandomSquare();
+    console.log(event.charCode);
   }
 
   renderSquare(i) {
