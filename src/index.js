@@ -41,8 +41,6 @@ class GameBoard extends React.Component {
   setRandomSquare() {
     let boardCopy = this.state.values;
 
-    console.log("Board Copy" + boardCopy);
-
     // If there are no free squares then don't generate an index
     if (freeSquares === 0) {
       return;
@@ -62,7 +60,6 @@ class GameBoard extends React.Component {
 
     // Traverse the array to evenly place the psudeo random value. 
     for (let i = 0; i < totalSquares; i++) {
-      console.log(i + " " + randomIndex);
       if (boardCopy[i] === undefined) {
         randomIndex -= 1;
       }
@@ -86,16 +83,17 @@ class GameBoard extends React.Component {
     // ex: ["", 4, 4, ""] => [8, "", "", ""]
     //     [4, 4, 2, 2] => [8, 4, "", ""]
     //     [8, 4, 4, 8] => [8, 8, 8, ""]
+    // Returns array of [mergedArray, freedSquares]
 
     let condensed = [];
     let output = [];
     let mergeFlag = true;
+    let freedSquares = 0;
 
     // Remove all null values
     for (let i = 0; i < squares.length; i++) {
       if (squares[i] !== undefined) {
         condensed.push(squares[i]);
-        console.log(condensed)
       } 
     }
     
@@ -105,6 +103,7 @@ class GameBoard extends React.Component {
         condensed[i] = 2 * condensed[i];
         condensed[i+1] = undefined;
         mergeFlag = false;
+        freedSquares++;
       } else if (condensed[i] === condensed[i + 1] && !mergeFlag) {
         mergeFlag = true;
       }
@@ -117,16 +116,36 @@ class GameBoard extends React.Component {
       } 
     }
 
-    return output;
+    return [output, freedSquares];
   }
 
   onKeyPress(event) {
     this.setRandomSquare();
-    console.log(event.charCode);
+    this.directionHandler(event);
+  }
+
+  directionHandler(event) {
+    let newBoard = [];
+
+    if (freeSquares === 0) {
+      return; 
+    }
+    if (event.key === 'ArrowUp' || event.key === 'w') {
+      
+    }else if (event.key === 'ArrowRight' || event.key === 'd'){
+      
+    }else if (event.key === 'ArrowDown' || event.key === 's'){
+
+    }else if (event.key === 'ArrowLeft' || event.key === 'a'){
+      for (let i = 0; i < boardWidth; i++) {
+        newBoard = this.state.values.slice(i * boardWidth, i + boardWidth - 1);
+        newBoard = this.mergeSubArray(newBoard);
+        console.log(newBoard);
+      }
+    }
   }
 
   renderSquare(i) {
-    console.log("renderSquare(" + i + ")");
     return <Square value={i} />;
   }
 
@@ -164,7 +183,7 @@ class GameBoard extends React.Component {
   }
 }   
 
-const App = (props) => {
+const App = () => {
   return (
     <GameBoard />
   )
