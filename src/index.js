@@ -83,7 +83,9 @@ class GameBoard extends React.Component {
 
   mergeSubArray(squares) {
     // This function assumes that its array is one dimentional and merges toward the front
-    // ex: ["", 4, 4, ""] => ["8", "", "", ""]
+    // ex: ["", 4, 4, ""] => [8, "", "", ""]
+    //     [4, 4, 2, 2] => [8, 4, "", ""]
+    //     [8, 4, 4, 8] => [8, 8, 8, ""]
 
     let condensed = [];
     let output = [];
