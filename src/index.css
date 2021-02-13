@@ -1,0 +1,18 @@
+body {
+  background-color: grey;
+}
+
+.square {
+  width: 8vw;
+  height: 8vw;
+  float: left;
+  border: 2px black solid;
+  text-align: center;
+  font-size: 8vw;
+}
+
+.board {
+  width: 33vw;
+  height: 33vh;
+  padding-left: 33vw;
+}
